@@ -1,0 +1,8 @@
+common:
+  build_only: true
+  tags: bluetooth
+tests:
+  bluetooth.ctrl_user_ext.test:
+    platform_allow: nrf52_bsim
+    extra_args:
+      - SNIPPET="bt-ll-sw-split"

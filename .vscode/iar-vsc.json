@@ -1,0 +1,15 @@
+{
+  "workspace": {
+    "path": "${workspaceFolder}\\test\\cmock\\test\\iar\\iar_v4\\cmock_demo.eww"
+  },
+  "workspaces": {
+    "${workspaceFolder}\\test\\cmock\\test\\iar\\iar_v4\\cmock_demo.eww": {
+      "configs": {
+        "${workspaceFolder}\\test\\cmock\\test\\iar\\iar_v4\\cmock_demo.ewp": "Debug"
+      },
+      "selected": {
+        "path": "${workspaceFolder}\\test\\cmock\\test\\iar\\iar_v4\\cmock_demo.ewp"
+      }
+    }
+  }
+}

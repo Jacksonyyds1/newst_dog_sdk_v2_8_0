@@ -1,0 +1,13 @@
+# Target labels
+ nrf54l15_bluetooth_app
+# Source files and their labels
+D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/nrf54l15_bluetooth_app/build/_sysbuild/sysbuild/images/CMakeFiles/nrf54l15_bluetooth_app
+D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/nrf54l15_bluetooth_app/build/_sysbuild/sysbuild/images/CMakeFiles/nrf54l15_bluetooth_app.rule
+D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/nrf54l15_bluetooth_app/build/_sysbuild/sysbuild/images/CMakeFiles/nrf54l15_bluetooth_app-complete.rule
+D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/nrf54l15_bluetooth_app/build/_sysbuild/sysbuild/images/nrf54l15_bluetooth_app-prefix/src/nrf54l15_bluetooth_app-stamp/nrf54l15_bluetooth_app-build.rule
+D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/nrf54l15_bluetooth_app/build/_sysbuild/sysbuild/images/nrf54l15_bluetooth_app-prefix/src/nrf54l15_bluetooth_app-stamp/nrf54l15_bluetooth_app-configure.rule
+D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/nrf54l15_bluetooth_app/build/_sysbuild/sysbuild/images/nrf54l15_bluetooth_app-prefix/src/nrf54l15_bluetooth_app-stamp/nrf54l15_bluetooth_app-download.rule
+D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/nrf54l15_bluetooth_app/build/_sysbuild/sysbuild/images/nrf54l15_bluetooth_app-prefix/src/nrf54l15_bluetooth_app-stamp/nrf54l15_bluetooth_app-install.rule
+D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/nrf54l15_bluetooth_app/build/_sysbuild/sysbuild/images/nrf54l15_bluetooth_app-prefix/src/nrf54l15_bluetooth_app-stamp/nrf54l15_bluetooth_app-mkdir.rule
+D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/nrf54l15_bluetooth_app/build/_sysbuild/sysbuild/images/nrf54l15_bluetooth_app-prefix/src/nrf54l15_bluetooth_app-stamp/nrf54l15_bluetooth_app-patch.rule
+D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/nrf54l15_bluetooth_app/build/_sysbuild/sysbuild/images/nrf54l15_bluetooth_app-prefix/src/nrf54l15_bluetooth_app-stamp/nrf54l15_bluetooth_app-update.rule

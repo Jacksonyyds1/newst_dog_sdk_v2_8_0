@@ -1,0 +1,9 @@
+common:
+  tags:
+    - bluetooth
+    - bt_ull_llcp
+tests:
+  bluetooth.ctrl_tx_queue.test:
+    type: unit
+    extra_args:
+      - SNIPPET="bt-ll-sw-split"

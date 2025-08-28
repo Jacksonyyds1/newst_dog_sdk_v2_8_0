@@ -1,0 +1,10 @@
+common:
+  tags:
+    - bluetooth
+    - bt_collision
+    - bt_ull_llcp
+tests:
+  bluetooth.controller.ctrl_collision.test:
+    type: unit
+    extra_args:
+      - SNIPPET="bt-ll-sw-split"

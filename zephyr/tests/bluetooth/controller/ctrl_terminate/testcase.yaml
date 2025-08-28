@@ -1,0 +1,10 @@
+common:
+  tags:
+    - bluetooth
+    - bt_terminate
+    - bt_ull_llcp
+tests:
+  bluetooth.controller.ctrl_terminate.test:
+    type: unit
+    extra_args:
+      - SNIPPET="bt-ll-sw-split"

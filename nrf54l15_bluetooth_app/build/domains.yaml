@@ -1,0 +1,7 @@
+default: nrf54l15_bluetooth_app
+build_dir: D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/nrf54l15_bluetooth_app/build
+domains:
+  - name: nrf54l15_bluetooth_app
+    build_dir: D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/nrf54l15_bluetooth_app/build/nrf54l15_bluetooth_app
+flash_order:
+  - nrf54l15_bluetooth_app
