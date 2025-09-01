@@ -5,6 +5,8 @@
 
 cmake_minimum_required(VERSION 3.20.0)
 
+set(DTC_OVERLAY_FILE ./board/nrf5340dk_nrf5340_cpuapp_mfg.overlay)
+
 # 查找 Zephyr 包
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 
