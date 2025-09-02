@@ -3,7 +3,8 @@
 
 cmake_minimum_required(VERSION 3.20.0)
 
-set(DTC_OVERLAY_FILE ./nrf5340dk_nrf5340_cpuapp_mfg.overlay)
+#set(DTC_OVERLAY_FILE ./nrf5340dk_nrf5340_cpuapp_mfg.overlay)
+set(DTC_OVERLAY_FILE ./nrf54l15dk_nrf54l15.overlay)
 
 add_compile_options(-Werror)
 
