@@ -1,2 +1,0 @@
-"nrf":"D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/nrf":"D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/nrf/sysbuild"
-"mcuboot":"D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/bootloader/mcuboot":"D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/bootloader/mcuboot/boot/zephyr/sysbuild"
