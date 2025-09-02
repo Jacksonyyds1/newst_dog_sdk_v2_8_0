@@ -1,0 +1,51 @@
+cmake:
+  application:
+    configuration-dir: D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker
+    source-dir: D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker
+  board:
+    name: nrf54l15dk
+    qualifiers: nrf54l15/cpuapp
+    revision: 
+  devicetree:
+    bindings-dirs:
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/nrf/dts/bindings
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/dts/bindings
+    files:
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/boards/nordic/nrf54l15dk/nrf54l15dk_nrf54l15_cpuapp.dts
+     - ./boards/nrf54l15dk_nrf54l15_cpuapp.overlay
+    include-dirs:
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/nrf/include
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/nrf/dts
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/include
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include/zephyr
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/dts/common
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/dts/x86
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/dts/xtensa
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/dts/sparc
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/dts/riscv
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/dts/posix
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/dts/nios2
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/dts/arm64
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/dts/arm
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/dts/arc
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/dts
+    user-files:
+     - ./boards/nrf54l15dk_nrf54l15_cpuapp.overlay
+  kconfig:
+    files:
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/boards/nordic/nrf54l15dk/nrf54l15dk_nrf54l15_cpuapp_defconfig
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/prj.conf
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/build/dog_tracker/zephyr/.config.sysbuild
+    user-files:
+     - D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/prj.conf
+  toolchain:
+    name: zephyr
+    path: D:/Dog_track/zephyr-sdk-0.16.9_windows-x86_64/zephyr-sdk-0.16.9
+  vendor-specific:
+    nordic:
+      svdfile: D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/modules/hal/nordic/nrfx/mdk/nrf54l15_application.svd
+  zephyr:
+    version: 3.7.99
+    zephyr-base: D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr
+version: 0.1.0

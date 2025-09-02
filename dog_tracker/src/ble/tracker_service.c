@@ -8,7 +8,7 @@
 #include <zephyr/bluetooth/bluetooth.h>
 #include <zephyr/bluetooth/gatt.h>
 #include <zephyr/logging/log.h>
-#include <zephyr/random/rand32.h>
+#include <zephyr/random/random.h>  // 修复：更新头文件
 #include <zephyr/settings/settings.h>
 
 #include <zcbor_decode.h>
@@ -20,7 +20,7 @@
 #include "tracker_service.h"
 #include "uicr.h"
 
-LOG_MODULE_REGISTER(tracker_service, CONFIG_TRACKER_SERVICE_LOG_LEVEL);
+LOG_MODULE_REGISTER(tracker_service, CONFIG_LOG_DEFAULT_LEVEL);
 
 #define ONBOARDED_SETTINGS_PATH "tracker/onboarded"
 
@@ -69,8 +69,8 @@ static ssize_t set_device_info(
     struct zcbor_string decoded_key;
     uint64_t ts;
 
-    /* 创建CBOR解码状态 */
-    ZCBOR_STATE_D(decoding_state, 3, buf, len, 2);
+    /* 修复：创建CBOR解码状态，添加第6个参数 */
+    ZCBOR_STATE_D(decoding_state, 3, buf, len, 2, 0);
 
     /* 开始解码映射 */
     success = zcbor_map_start_decode(decoding_state);
@@ -143,8 +143,8 @@ static ssize_t set_ping(
     bool success;
     struct zcbor_string decoded_key;
 
-    /* 创建CBOR解码状态 */
-    ZCBOR_STATE_D(decoding_state, 3, buf, len, 2);
+    /* 修复：创建CBOR解码状态，添加第6个参数 */
+    ZCBOR_STATE_D(decoding_state, 3, buf, len, 2, 0);
 
     /* 开始解码映射 */
     success = zcbor_map_start_decode(decoding_state);
@@ -219,7 +219,8 @@ static int device_info_resp(void)
 
     char version_str[16];
     sprintf(version_str, "%d.%d.%d", APP_VERSION_MAJOR, APP_VERSION_MINOR, APP_VERSION_PATCH);
-    success = zcbor_tstr_put_term(encoding_state, version_str);
+    /* 修复：添加长度参数 */
+    success = zcbor_tstr_put_term(encoding_state, version_str, strlen(version_str));
     if (!success) {
         goto error;
     }
@@ -241,7 +242,9 @@ static int device_info_resp(void)
         goto error;
     }
 
-    success = zcbor_tstr_put_term(encoding_state, uicr_serial_number_get());
+    const char *serial = uicr_serial_number_get();
+    /* 修复：添加长度参数 */
+    success = zcbor_tstr_put_term(encoding_state, serial, strlen(serial));
     if (!success) {
         goto error;
     }
@@ -387,7 +390,8 @@ int fota_notify(char *fota_state)
         goto error;
     }
 
-    success = zcbor_tstr_put_term(encoding_state, fota_state);
+    /* 修复：添加长度参数 */
+    success = zcbor_tstr_put_term(encoding_state, fota_state, strlen(fota_state));
     if (!success) {
         goto error;
     }
@@ -415,12 +419,14 @@ error:
 bool tracker_service_is_onboarded(void)
 {
     bool onboarded = false;
-    int rc = settings_load_subtree_direct(ONBOARDED_SETTINGS_PATH, NULL, NULL);
+    size_t len = sizeof(onboarded);
     
-    if (rc == 0) {
-        /* 从设置中读取 */
-        size_t len = sizeof(onboarded);
-        settings_load_subtree_direct(ONBOARDED_SETTINGS_PATH, &onboarded, &len);
+    /* 修复：使用正确的Settings API */
+    int ret = settings_runtime_get(ONBOARDED_SETTINGS_PATH, &onboarded, len);
+    
+    if (ret < 0) {
+        LOG_DBG("Failed to load onboarded setting, assuming not onboarded");
+        return false;
     }
     
     return onboarded;

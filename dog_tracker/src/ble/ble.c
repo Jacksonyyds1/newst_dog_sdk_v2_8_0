@@ -17,7 +17,8 @@
 #include "tracker_service.h"
 #include "uicr.h"
 
-LOG_MODULE_REGISTER(ble, CONFIG_BLE_LOG_LEVEL);
+/* 修复：使用默认日志级别配置 */
+LOG_MODULE_REGISTER(ble, CONFIG_LOG_DEFAULT_LEVEL);
 
 /* BLE连接状态 */
 static struct bt_conn *current_conn;
@@ -93,91 +94,63 @@ static void disconnected(struct bt_conn *conn, uint8_t reason)
         auth_conn = NULL;
     }
 
-    if (current_conn) {
+    if (current_conn == conn) {
+        bt_addr_le_to_str(bt_conn_get_dst(conn), addr, sizeof(addr));
+        LOG_INF("Disconnected: %s (reason 0x%02x)", addr, reason);
+        
         bt_conn_unref(current_conn);
         current_conn = NULL;
-    }
 
-    bt_addr_le_to_str(bt_conn_get_dst(conn), addr, sizeof(addr));
-    LOG_INF("Disconnected from %s (reason %u)", addr, reason);
-
-    /* 处理延迟的广播停止 */
-    if (defer_ble_stop) {
-        LOG_INF("Executing deferred BLE stop");
-        bt_le_adv_stop();
-        defer_ble_stop = false;
-    }
-}
-
-/* MTU更新回调 */
-void mtu_updated(struct bt_conn *conn, uint16_t tx, uint16_t rx)
-{
-    LOG_INF("MTU updated: TX: %d RX: %d bytes", tx, rx);
-}
-
-static struct bt_gatt_cb gatt_callbacks = { 
-    .att_mtu_updated = mtu_updated 
-};
-
-/* 安全等级变更回调 */
-static void security_changed(struct bt_conn *conn, bt_security_t level, 
-                           enum bt_security_err err)
-{
-    char addr[BT_ADDR_LE_STR_LEN];
-
-    bt_addr_le_to_str(bt_conn_get_dst(conn), addr, sizeof(addr));
-
-    if (!err) {
-        LOG_INF("Security changed: %s level %u", addr, level);
-        
-        if (bt_conn_get_security(conn) >= BT_SECURITY_L2) {
-            LOG_INF("Security level >= L2 achieved");
+        /* 如果之前延迟停止广播，现在停止 */
+        if (defer_ble_stop) {
+            LOG_INF("Stopping BLE advertising after deferred stop");
+            bt_le_adv_stop();
+            defer_ble_stop = false;
         }
-    } else {
-        LOG_ERR("Security failed: %s level %u err %d", addr, level, err);
     }
 }
 
 /* 连接回调结构 */
 BT_CONN_CB_DEFINE(conn_callbacks) = {
-    .connected        = connected,
-    .disconnected     = disconnected,
-    .security_changed = security_changed,
+    .connected = connected,
+    .disconnected = disconnected,
 };
 
-/* 认证取消回调 */
+/* 安全相关回调 */
+static void auth_passkey_display(struct bt_conn *conn, unsigned int passkey)
+{
+    char addr[BT_ADDR_LE_STR_LEN];
+    bt_addr_le_to_str(bt_conn_get_dst(conn), addr, sizeof(addr));
+    LOG_INF("Passkey for %s: %06u", addr, passkey);
+}
+
 static void auth_cancel(struct bt_conn *conn)
 {
     char addr[BT_ADDR_LE_STR_LEN];
-
     bt_addr_le_to_str(bt_conn_get_dst(conn), addr, sizeof(addr));
-    LOG_WRN("Pairing cancelled: %s", addr);
-
-    bt_conn_disconnect(conn, BT_HCI_ERR_REMOTE_USER_TERM_CONN);
+    LOG_INF("Pairing cancelled: %s", addr);
 }
 
-/* 配对完成回调 */
 static void pairing_complete(struct bt_conn *conn, bool bonded)
 {
     char addr[BT_ADDR_LE_STR_LEN];
-
     bt_addr_le_to_str(bt_conn_get_dst(conn), addr, sizeof(addr));
     LOG_INF("Pairing completed: %s, bonded: %d", addr, bonded);
 }
 
-/* 配对失败回调 */
 static void pairing_failed(struct bt_conn *conn, enum bt_security_err reason)
 {
     char addr[BT_ADDR_LE_STR_LEN];
-
     bt_addr_le_to_str(bt_conn_get_dst(conn), addr, sizeof(addr));
-    LOG_ERR("Pairing failed: %s, reason %d", addr, reason);
-
+    LOG_WRN("Pairing failed conn: %s, reason %d", addr, reason);
+    
+    /* 断开连接 */
     bt_conn_disconnect(conn, BT_HCI_ERR_REMOTE_USER_TERM_CONN);
 }
 
 /* 认证回调结构 */
 static struct bt_conn_auth_cb conn_auth_callbacks = {
+    .passkey_display = auth_passkey_display,
     .cancel = auth_cancel,
 };
 
@@ -262,89 +235,36 @@ int ble_init(void)
     /* 生成设备名称 */
     char *serial_num = uicr_serial_number_get();
     
-    if (serial_num[UICR_STR_MAX_LEN - 7] != 0xFF) {
-        /* 使用序列号的最后6位 */
-        snprintf(
-            local_name_str,
-            sizeof(local_name_str),
-            "Dog Tracker %c%c%c%c%c%c",
-            serial_num[UICR_STR_MAX_LEN - 7],
-            serial_num[UICR_STR_MAX_LEN - 6],
-            serial_num[UICR_STR_MAX_LEN - 5],
-            serial_num[UICR_STR_MAX_LEN - 4],
-            serial_num[UICR_STR_MAX_LEN - 3],
-            serial_num[UICR_STR_MAX_LEN - 2]);
+    if (serial_num[UICR_STR_MAX_LEN - 2] == '\0') {
+        /* 完整序列号 */
+        snprintf(local_name_str, sizeof(local_name_str), "Tracker-%s", serial_num);
     } else {
-        /* 使用蓝牙MAC地址 */
-        bt_addr_le_t addr = { 0 };
-        size_t count = 1;
-        bt_id_get(&addr, &count);
-        
-        snprintf(local_name_str, sizeof(local_name_str), 
-                "Dog Tracker %02X%02X%02X", 
-                addr.a.val[2], addr.a.val[1], addr.a.val[0]);
+        /* 截断的序列号，显示前10个字符 */
+        snprintf(local_name_str, sizeof(local_name_str), "Tracker-%.10s", serial_num);
     }
-    
-    LOG_INF("BLE Device Name: %s", local_name_str);
 
-    /* 设置GAP设备名称 */
-    bt_set_name(local_name_str);
-
-    /* 注册GATT回调 */
-    bt_gatt_cb_register(&gatt_callbacks);
+    LOG_INF("Device name: %s", local_name_str);
 
     /* 注册认证回调 */
     err = bt_conn_auth_cb_register(&conn_auth_callbacks);
     if (err) {
-        LOG_ERR("Failed to register authorization callbacks: %d", err);
+        LOG_ERR("Failed to register auth callbacks (err %d)", err);
         return err;
     }
 
     err = bt_conn_auth_info_cb_register(&conn_auth_info_callbacks);
     if (err) {
-        LOG_ERR("Failed to register authorization info callbacks: %d", err);
+        LOG_ERR("Failed to register auth info callbacks (err %d)", err);
         return err;
     }
 
     /* 初始化Tracker服务 */
-    tracker_service_init();
-    
-    LOG_INF("Bluetooth initialized successfully");
-    
-    /* 如果是出厂设备，自动开始广播 */
-    if (uicr_shipping_flag_get()) {
-        LOG_INF("Shipping mode - starting BLE advertising");
-        return ble_advertise_start(BLE_ADV_TIME);
+    err = tracker_service_init();
+    if (err) {
+        LOG_ERR("Failed to initialize tracker service (err %d)", err);
+        return err;
     }
-    
-    return 0;
-}
 
-/* 强制断开连接 */
-int ble_disconnect(void)
-{
-    if (current_conn) {
-        LOG_INF("Forcing BLE disconnect");
-        return bt_conn_disconnect(current_conn, BT_HCI_ERR_REMOTE_USER_TERM_CONN);
-    }
+    LOG_INF("Bluetooth initialization complete");
     return 0;
-}
-
-/* 关闭BLE功能 */
-int ble_shutdown(void)
-{
-    LOG_INF("Shutting down BLE");
-    bt_le_adv_stop();
-    
-    if (current_conn) {
-        bt_conn_disconnect(current_conn, BT_HCI_ERR_REMOTE_POWER_OFF);
-    }
-    
-    return 0;
-}
-
-/* 获取本地设备名称 */
-char *ble_get_local_name(void)
-{
-    return local_name_str;
 }
