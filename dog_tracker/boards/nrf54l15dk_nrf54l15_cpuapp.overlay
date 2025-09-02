@@ -1,0 +1,62 @@
+/*
+ * Copyright (c) 2024 Dog Tracker Project
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/ {
+    /* 为BLE广播配置LED指示器 */
+    leds {
+        compatible = "gpio-leds";
+        
+        ble_led: led_ble {
+            gpios = <&gpio1 5 GPIO_ACTIVE_LOW>;
+            label = "BLE Status LED";
+        };
+        
+        status_led: led_status {
+            gpios = <&gpio1 6 GPIO_ACTIVE_LOW>;
+            label = "Status LED";
+        };
+    };
+
+    /* 按钮配置 */
+    buttons {
+        compatible = "gpio-keys";
+        
+        pairing_button: button_pairing {
+            gpios = <&gpio0 23 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+            label = "Pairing Button";
+        };
+    };
+
+    /* 电源管理相关别名 */
+    aliases {
+        ble-led = &ble_led;
+        status-led = &status_led;
+        pairing-button = &pairing_button;
+    };
+
+    chosen {
+        zephyr,console = &uart20;
+        zephyr,shell-uart = &uart20;
+    };
+};
+
+/* 配置UART20用于调试 (nRF54L15使用uart20作为默认调试接口) */
+&uart20 {
+    status = "okay";
+};
+
+/* 使用已经存在的storage_partition进行NVS配置 */
+/ {
+    fstab {
+        compatible = "zephyr,fstab";
+        nvs: nvs {
+            compatible = "zephyr,fstab,nvs";
+            mount-point = "/nvs";
+            partition = <&storage_partition>;
+            sector-size = <4096>;
+            sector-count = <8>;
+        };
+    };
+};
