@@ -76,7 +76,7 @@ DTC:FILEPATH=DTC-NOTFOUND
 // parameter. These settings will override the settings in the
 // board's .dts file. Multiple files may be listed, e.g. DTC_OVERLAY_FILE="dts1.overlay
 // dts2.overlay"
-DTC_OVERLAY_FILE:STRING=./nrf54l15dk_nrf54l15.overlay
+DTC_OVERLAY_FILE:STRING=./nrf54l15_nrf54l15.overlay
 
 //No help, variable specified on the command line.
 EXTRA_KCONFIG_TARGETS:UNINITIALIZED=

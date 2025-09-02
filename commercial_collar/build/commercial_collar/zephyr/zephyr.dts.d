@@ -1,0 +1,32 @@
+empty_file.o: \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/misc/empty_file.c \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/boards/nordic/nrf54l15dk/nrf54l15dk_nrf54l15_cpuapp.dts \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/boards/nordic/nrf54l15dk/nrf54l15_cpuapp_common.dtsi \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/dts/arm/nordic/nrf54l15_cpuapp.dtsi \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/dts/common/nordic/nrf54l15.dtsi \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/dts/common/mem.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/dts/common/nordic/nrf_common.dtsi \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include/zephyr/dt-bindings/adc/adc.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include/zephyr/dt-bindings/dt-util.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include/zephyr/sys/util_macro.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include/zephyr/sys/util_internal.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include/zephyr/sys/util_loops.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include/zephyr/sys/util_listify.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include/zephyr/sys/util_internal_is_eq.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include/zephyr/sys/util_internal_util_inc.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include/zephyr/sys/util_internal_util_dec.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include/zephyr/sys/util_internal_util_x2.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include/zephyr/dt-bindings/gpio/gpio.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include/zephyr/dt-bindings/i2c/i2c.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include/zephyr/dt-bindings/input/input-event-codes.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include/zephyr/dt-bindings/pinctrl/nrf-pinctrl.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include/zephyr/dt-bindings/pwm/pwm.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/dts/common/freq.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/dts/arm/nordic/override.dtsi \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include/zephyr/dt-bindings/adc/nrf-saadc-nrf54l.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include/zephyr/dt-bindings/adc/nrf-saadc-v2.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include/zephyr/dt-bindings/adc/nrf-saadc.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/include/zephyr/dt-bindings/regulator/nrf5x.h \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/boards/nordic/nrf54l15dk/nrf54l15dk_nrf54l15-common.dtsi \
+ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/boards/nordic/nrf54l15dk/nrf54l15dk_nrf54l15-pinctrl.dtsi \
+ nrf54l15_nrf54l15.overlay

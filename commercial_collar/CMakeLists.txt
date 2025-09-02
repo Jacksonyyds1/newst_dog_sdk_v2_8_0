@@ -3,8 +3,8 @@
 
 cmake_minimum_required(VERSION 3.20.0)
 
-#set(DTC_OVERLAY_FILE ./nrf5340dk_nrf5340_cpuapp_mfg.overlay)
-set(DTC_OVERLAY_FILE ./nrf54l15dk_nrf54l15.overlay)
+# 设置 overlay 文件 - 必须在 find_package(Zephyr) 之前
+set(DTC_OVERLAY_FILE ./nrf54l15_nrf54l15.overlay)
 
 add_compile_options(-Werror)
 
@@ -16,12 +16,14 @@ get_filename_component(APPLICATION_PROJECT_DIR
 list(APPEND CONF_FILE prj.conf)
 
 if (EXISTS prj.local.conf)
-  list(APPEND CONF_FILE prj.local.conf)
+    list(APPEND CONF_FILE prj.local.conf)
 endif()
+
 if (CONFIG_RELEASE_BUILD)
-  message("Doing a RELEASE build")
-  list(APPEND CONF_FILE prj.release.conf)
+    message("Doing a RELEASE build")
+    list(APPEND CONF_FILE prj.release.conf)
 endif()
+
 message("CONF_FILE=${CONF_FILE}")
 list(APPEND BOARD_ROOT ${APPLICATION_PROJECT_DIR})
 list(APPEND DTS_ROOT ${APPLICATION_PROJECT_DIR})
@@ -31,68 +33,82 @@ message("ADDING DTS_ROOT=${DTS_ROOT}")
 list(APPEND EXTRA_ZEPHYR_MODULES ${APPLICATION_PROJECT_DIR}/lib/drivers)
 message("MODULES=${EXTRA_ZEPHYR_MODULES}")
 
+# 必须在设置完所有配置后调用
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 
+# 项目信息
+set(PROJECT_VERSION_MAJOR 1)
+set(PROJECT_VERSION_MINOR 0)
+set(PROJECT_VERSION_PATCH 0)
 
-project(commercial_collar VERSION 1.21.0)
+project(commercial_collar VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
 
-zephyr_library_include_directories(src/include)
-target_sources(app PRIVATE src/main.c src/pm_shell.c src/shell.c src/nrf53_upgrade.c src/self_check.c src/d1_time.c)
-target_sources_ifdef(CONFIG_RELEASE_BUILD app PRIVATE src/login.c)
-add_subdirectory(../c_modules/fqueue ./build/c_modules/fqueue)
-add_subdirectory(../c_modules/pmic ./build/c_modules/pmic)
-add_subdirectory(../c_modules/modem ./build/c_modules/modem)
-add_subdirectory(src/wifi)
-add_subdirectory(../c_modules/watchdog ./build/c_modules/watchdog)
-add_subdirectory(src/ble)
-add_subdirectory(../c_modules/imu ./build/c_modules/imu)
-add_subdirectory(../c_modules/json ./build/c_modules/json)
-add_subdirectory(../c_modules/tde ./build/c_modules/tde)
-add_subdirectory(../c_modules/uicr ./build/c_modules/uicr)
-add_subdirectory(../c_modules/utils ./build/c_modules/utils)
-add_subdirectory(src/storage)
-add_subdirectory(src/ml)
-add_subdirectory(src/comm_mgr)
-add_subdirectory(src/zbus)
-
-
+# 版本定义
 add_definitions(-DAPP_VERSION_MAJOR_CMAKE=${PROJECT_VERSION_MAJOR})
 add_definitions(-DAPP_VERSION_MINOR_CMAKE=${PROJECT_VERSION_MINOR})
 add_definitions(-DAPP_VERSION_PATCH_CMAKE=${PROJECT_VERSION_PATCH})
 
-# Get the current Git commit hash
+# Git 信息
 execute_process(
   COMMAND git rev-parse --short=6 HEAD
   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
   OUTPUT_VARIABLE GIT_HASH
   OUTPUT_STRIP_TRAILING_WHITESPACE
+  ERROR_QUIET
 )
 
-# Check if the repository is dirty
+# 检查仓库是否有未提交的修改
 execute_process(
   COMMAND git status --porcelain -uno
   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
   OUTPUT_VARIABLE GIT_DIRTY_STATUS
   OUTPUT_STRIP_TRAILING_WHITESPACE
+  ERROR_QUIET
 )
 
-# Append '-dirty' to the version string if the repository is dirty
+# 如果有未提交的修改，添加 '-dirty' 后缀
 if(NOT GIT_DIRTY_STATUS STREQUAL "")
   set(GIT_HASH "${GIT_HASH}-dirty")
 endif()
 
-add_definitions(-DGIT_HASH_CMAKE=\"${GIT_HASH}\")
+if(GIT_HASH)
+  add_definitions(-DGIT_HASH_CMAKE=\"${GIT_HASH}\")
+else()
+  add_definitions(-DGIT_HASH_CMAKE=\"unknown\")
+endif()
 
-# Get the build machine name
+# 构建机器名
 execute_process(
   COMMAND hostname
   OUTPUT_VARIABLE BUILD_MACHINE
   OUTPUT_STRIP_TRAILING_WHITESPACE
+  ERROR_QUIET
 )
 
-# Get the build date
+# 构建日期
 string(TIMESTAMP BUILD_DATE "%Y-%m-%d %H:%M:%S")
 
-# Pass the variables to the code
-add_definitions(-DBUILD_MACHINE_CMAKE=\"${BUILD_MACHINE}\")
+# 传递变量到代码
+if(BUILD_MACHINE)
+  add_definitions(-DBUILD_MACHINE_CMAKE=\"${BUILD_MACHINE}\")
+else()
+  add_definitions(-DBUILD_MACHINE_CMAKE=\"unknown\")
+endif()
 add_definitions(-DBUILD_DATE_CMAKE=\"${BUILD_DATE}\")
+
+# 添加源文件
+target_sources(app PRIVATE
+  src/main.c
+  # 逐步添加其他源文件
+  # src/wifi/src/wifi.c
+  # src/wifi/src/wifi_at.c
+  # c_modules/json/src/d1_json.c
+)
+
+# 包含目录
+target_include_directories(app PRIVATE
+  src/
+  # c_modules/json/include
+  # c_modules/pmic/include
+  # src/wifi/include
+)
