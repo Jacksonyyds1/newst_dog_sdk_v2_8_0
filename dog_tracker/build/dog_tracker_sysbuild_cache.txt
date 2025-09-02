@@ -20,6 +20,7 @@ _Python3_EXECUTABLE_DEBUG:INTERNAL=_Python3_EXECUTABLE_DEBUG-NOTFOUND
 _Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;13;3;64;<none>;cp313-win_amd64;;C:\Python313\Lib;C:\Python313\Lib;C:\Python313\Lib\site-packages;C:\Python313\Lib\site-packages
 _Python3_INTERPRETER_SIGNATURE:INTERNAL=20537deaa1c9eff5ca863a94b55c64d4
 _Python3_NumPy_REASON_FAILURE:INTERNAL=
+dog_tracker_NCS_RUNNER_HEX:INTERNAL=D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/build/merged.hex
 sysbuild_toplevel_BINARY_DIR:STATIC=D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/build
 sysbuild_toplevel_IS_TOP_LEVEL:STATIC=ON
 sysbuild_toplevel_SOURCE_DIR:STATIC=D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/zephyr/share/sysbuild

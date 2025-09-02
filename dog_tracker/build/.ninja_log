@@ -1,0 +1,11 @@
+# ninja log v5
+10	91	7784972406640723	_sysbuild/sysbuild/images/dog_tracker-prefix/src/dog_tracker-stamp/dog_tracker-mkdir	c4f2ec988a6e7772
+10	91	7784972406640723	D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/build/_sysbuild/sysbuild/images/dog_tracker-prefix/src/dog_tracker-stamp/dog_tracker-mkdir	c4f2ec988a6e7772
+91	167	7784972407378761	_sysbuild/sysbuild/images/dog_tracker-prefix/src/dog_tracker-stamp/dog_tracker-download	52a13fd634707cc2
+91	167	7784972407378761	D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/build/_sysbuild/sysbuild/images/dog_tracker-prefix/src/dog_tracker-stamp/dog_tracker-download	52a13fd634707cc2
+167	261	7784972408327389	_sysbuild/sysbuild/images/dog_tracker-prefix/src/dog_tracker-stamp/dog_tracker-update	a57b080fa4a59da9
+167	261	7784972408327389	D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/build/_sysbuild/sysbuild/images/dog_tracker-prefix/src/dog_tracker-stamp/dog_tracker-update	a57b080fa4a59da9
+261	334	7784972409063451	_sysbuild/sysbuild/images/dog_tracker-prefix/src/dog_tracker-stamp/dog_tracker-patch	6dd38d56b7de1a11
+261	334	7784972409063451	D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/build/_sysbuild/sysbuild/images/dog_tracker-prefix/src/dog_tracker-stamp/dog_tracker-patch	6dd38d56b7de1a11
+334	404	7784972409773416	_sysbuild/sysbuild/images/dog_tracker-prefix/src/dog_tracker-stamp/dog_tracker-configure	3e5842171b845085
+334	404	7784972409773416	D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/build/_sysbuild/sysbuild/images/dog_tracker-prefix/src/dog_tracker-stamp/dog_tracker-configure	3e5842171b845085
