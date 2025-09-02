@@ -421,7 +421,7 @@ bool tracker_service_is_onboarded(void)
     bool onboarded = false;
     size_t len = sizeof(onboarded);
     
-    /* 修复：使用正确的Settings API */
+    
     int ret = settings_runtime_get(ONBOARDED_SETTINGS_PATH, &onboarded, len);
     
     if (ret < 0) {

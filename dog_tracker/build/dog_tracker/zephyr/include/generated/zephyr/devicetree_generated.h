@@ -2093,7 +2093,7 @@
 /* Generic property macros: */
 #define DT_N_S_buttons_S_button_pairing_P_gpios_IDX_0_EXISTS 1
 #define DT_N_S_buttons_S_button_pairing_P_gpios_IDX_0_PH DT_N_S_soc_S_peripheral_50000000_S_gpio_10a000
-#define DT_N_S_buttons_S_button_pairing_P_gpios_IDX_0_VAL_pin 23
+#define DT_N_S_buttons_S_button_pairing_P_gpios_IDX_0_VAL_pin 4
 #define DT_N_S_buttons_S_button_pairing_P_gpios_IDX_0_VAL_pin_EXISTS 1
 #define DT_N_S_buttons_S_button_pairing_P_gpios_IDX_0_VAL_flags 17
 #define DT_N_S_buttons_S_button_pairing_P_gpios_IDX_0_VAL_flags_EXISTS 1
@@ -3509,7 +3509,7 @@
 /* Generic property macros: */
 #define DT_N_S_leds_S_led_ble_P_gpios_IDX_0_EXISTS 1
 #define DT_N_S_leds_S_led_ble_P_gpios_IDX_0_PH DT_N_S_soc_S_peripheral_50000000_S_gpio_d8200
-#define DT_N_S_leds_S_led_ble_P_gpios_IDX_0_VAL_pin 5
+#define DT_N_S_leds_S_led_ble_P_gpios_IDX_0_VAL_pin 10
 #define DT_N_S_leds_S_led_ble_P_gpios_IDX_0_VAL_pin_EXISTS 1
 #define DT_N_S_leds_S_led_ble_P_gpios_IDX_0_VAL_flags 1
 #define DT_N_S_leds_S_led_ble_P_gpios_IDX_0_VAL_flags_EXISTS 1
@@ -3601,7 +3601,7 @@
 /* Generic property macros: */
 #define DT_N_S_leds_S_led_status_P_gpios_IDX_0_EXISTS 1
 #define DT_N_S_leds_S_led_status_P_gpios_IDX_0_PH DT_N_S_soc_S_peripheral_50000000_S_gpio_d8200
-#define DT_N_S_leds_S_led_status_P_gpios_IDX_0_VAL_pin 6
+#define DT_N_S_leds_S_led_status_P_gpios_IDX_0_VAL_pin 14
 #define DT_N_S_leds_S_led_status_P_gpios_IDX_0_VAL_pin_EXISTS 1
 #define DT_N_S_leds_S_led_status_P_gpios_IDX_0_VAL_flags 1
 #define DT_N_S_leds_S_led_status_P_gpios_IDX_0_VAL_flags_EXISTS 1

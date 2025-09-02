@@ -7,7 +7,7 @@
                 "firmware": {
                     "file": "D:\\xiao_tian_ling_v0.2\\tracker_fw_sdk_V2_8_0\\dog_tracker\\build\\merged.hex"
                 },
-                "chip_erase_mode": "ERASE_ALL",
+                "chip_erase_mode": "ERASE_PAGES",
                 "verify": "VERIFY_READ"
             },
             "operationId": "1"

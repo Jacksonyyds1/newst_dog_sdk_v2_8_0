@@ -111,49 +111,7 @@ static int system_init(void)
     LOG_INF("Dog Tracker v%d.%d.%d initializing...", 
             APP_VERSION_MAJOR, APP_VERSION_MINOR, APP_VERSION_PATCH);
     
-    /* 初始化LED */
-    if (!gpio_is_ready_dt(&led_ble)) {
-        LOG_ERR("BLE LED device not ready");
-        return -ENODEV;
-    }
-    
-    if (!gpio_is_ready_dt(&led_status)) {
-        LOG_ERR("Status LED device not ready");
-        return -ENODEV;
-    }
-    
-    ret = gpio_pin_configure_dt(&led_ble, GPIO_OUTPUT_INACTIVE);
-    if (ret != 0) {
-        LOG_ERR("Failed to configure BLE LED: %d", ret);
-        return ret;
-    }
-    
-    ret = gpio_pin_configure_dt(&led_status, GPIO_OUTPUT_INACTIVE);
-    if (ret != 0) {
-        LOG_ERR("Failed to configure status LED: %d", ret);
-        return ret;
-    }
-    
-    /* 初始化按钮 */
-    if (!gpio_is_ready_dt(&button_pairing)) {
-        LOG_ERR("Pairing button device not ready");
-        return -ENODEV;
-    }
-    
-    ret = gpio_pin_configure_dt(&button_pairing, GPIO_INPUT);
-    if (ret != 0) {
-        LOG_ERR("Failed to configure pairing button: %d", ret);
-        return ret;
-    }
-    
-    ret = gpio_pin_interrupt_configure_dt(&button_pairing, GPIO_INT_EDGE_TO_ACTIVE);
-    if (ret != 0) {
-        LOG_ERR("Failed to configure button interrupt: %d", ret);
-        return ret;
-    }
-    
-    gpio_init_callback(&button_cb_data, button_pressed, BIT(button_pairing.pin));
-    gpio_add_callback(button_pairing.port, &button_cb_data);
+
     
     /* 启动LED定时器 */
     k_timer_start(&led_timer, K_MSEC(500), K_MSEC(500));
@@ -162,7 +120,6 @@ static int system_init(void)
     ret = ble_init();
     if (ret != 0) {
         LOG_ERR("BLE initialization failed: %d", ret);
-        set_led_state(&led_status, LED_STATE_BLINK_FAST);
         return ret;
     }
     
@@ -172,11 +129,7 @@ static int system_init(void)
         LOG_ERR("Tracker service initialization failed: %d", ret);
         return ret;
     }
-    
-    /* 启动时指示 */
-    set_led_state(&led_status, LED_STATE_ON);
-    k_sleep(K_SECONDS(2));
-    set_led_state(&led_status, LED_STATE_OFF);
+
     
     LOG_INF("System initialization completed successfully");
     return 0;
@@ -190,15 +143,11 @@ int main(void)
     ret = system_init();
     if (ret != 0) {
         LOG_ERR("System initialization failed: %d", ret);
-        /* 错误指示 */
-        while (1) {
-            gpio_pin_toggle_dt(&led_status);
-            k_sleep(K_MSEC(200));
-        }
     }
     
     LOG_INF("Dog Tracker running...");
     
+    ble_advertise_start(10000);
     /* 主循环 */
     while (1) {
         /* 检查连接状态 */
