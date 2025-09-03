@@ -177,8 +177,6 @@ _Python3_EXECUTABLE_DEBUG:INTERNAL=_Python3_EXECUTABLE_DEBUG-NOTFOUND
 //Python3 Properties
 _Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;13;3;64;<none>;cp313-win_amd64;;C:\Python313\Lib;C:\Python313\Lib;C:\Python313\Lib\site-packages;C:\Python313\Lib\site-packages
 _Python3_INTERPRETER_SIGNATURE:INTERNAL=20537deaa1c9eff5ca863a94b55c64d4
-//Interpreter reason failure
-_Python3_Interpreter_REASON_FAILURE:INTERNAL=
 //NumPy reason failure
 _Python3_NumPy_REASON_FAILURE:INTERNAL=
 //nRF Connect SDK partition managere controlled hex file

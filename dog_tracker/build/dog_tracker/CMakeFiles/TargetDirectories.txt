@@ -487,3 +487,7 @@ D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/build/dog_tracker/zephy
 D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/build/dog_tracker/zephyr/cmake/reports/CMakeFiles/footprint.dir
 D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/build/dog_tracker/zephyr/cmake/reports/CMakeFiles/edit_cache.dir
 D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/build/dog_tracker/zephyr/cmake/reports/CMakeFiles/rebuild_cache.dir
+D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/build/dog_tracker/c_modules/utils/CMakeFiles/edit_cache.dir
+D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/build/dog_tracker/c_modules/utils/CMakeFiles/rebuild_cache.dir
+D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/build/dog_tracker/c_modules/fqueue/CMakeFiles/edit_cache.dir
+D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/build/dog_tracker/c_modules/fqueue/CMakeFiles/rebuild_cache.dir
