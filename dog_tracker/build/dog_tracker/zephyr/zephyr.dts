@@ -148,7 +148,7 @@
 				rx-delay-supported;
 				rx-delay = < 0x1 >;
 				status = "okay";
-				cs-gpios = < &gpio2 0x5 0x1 >;
+				cs-gpios = < &gpio0 0x8 0x1 >;
 				pinctrl-0 = < &spi00_default >;
 				pinctrl-1 = < &spi00_sleep >;
 				pinctrl-names = "default", "sleep";
@@ -163,6 +163,12 @@
 					has-dpd;
 					t-enter-dpd = < 0x2710 >;
 					t-exit-dpd = < 0x88b8 >;
+				};
+				modem_spi: spi_device@0 {
+					compatible = "zephyr,spi-device";
+					reg = < 0x0 >;
+					spi-max-frequency = < 0x7a1200 >;
+					label = "MODEM_SPI";
 				};
 			};
 			uart00: uart@4a000 {
@@ -206,7 +212,7 @@
 				ngpios = < 0xb >;
 				status = "okay";
 				port = < 0x2 >;
-				phandle = < 0x2 >;
+				phandle = < 0xd >;
 			};
 			timer00: timer@55000 {
 				compatible = "nordic,nrf-timer";
@@ -433,7 +439,7 @@
 				pinctrl-0 = < &pwm20_default >;
 				pinctrl-1 = < &pwm20_sleep >;
 				pinctrl-names = "default", "sleep";
-				phandle = < 0xe >;
+				phandle = < 0xf >;
 			};
 			pwm21: pwm@d3000 {
 				compatible = "nordic,nrf-pwm";
@@ -477,7 +483,7 @@
 				status = "okay";
 				port = < 0x1 >;
 				gpiote-instance = < &gpiote20 >;
-				phandle = < 0xd >;
+				phandle = < 0xe >;
 			};
 			gpiote20: gpiote@da000 {
 				compatible = "nordic,nrf-gpiote";
@@ -582,7 +588,7 @@
 				status = "okay";
 				port = < 0x0 >;
 				gpiote-instance = < &gpiote30 >;
-				phandle = < 0xf >;
+				phandle = < 0x2 >;
 			};
 			gpiote30: gpiote@10c000 {
 				compatible = "nordic,nrf-gpiote";
@@ -792,6 +798,19 @@
 		ble-led = &ble_led;
 		status-led = &status_led;
 		pairing-button = &pairing_button;
+		spi4cs = &spi4cs_gpio;
+		modemdataready = &modem_data_ready_gpio;
+	};
+	gpio_mapping {
+		compatible = "gpio-keys";
+		spi4cs_gpio: spi4_cs_gpio {
+			gpios = < &gpio0 0x8 0x1 >;
+			label = "SPI4 Chip Select GPIO";
+		};
+		modem_data_ready_gpio: modem_data_ready_gpio {
+			gpios = < &gpio0 0x9 0x20 >;
+			label = "Modem Data Ready GPIO";
+		};
 	};
 	fstab {
 		compatible = "zephyr,fstab";

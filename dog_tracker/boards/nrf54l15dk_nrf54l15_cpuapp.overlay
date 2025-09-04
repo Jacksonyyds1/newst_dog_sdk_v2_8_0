@@ -24,8 +24,25 @@
         compatible = "gpio-keys";
         
         pairing_button: button_pairing {
-            gpios = <&gpio0 04 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+            gpios = <&gpio0 4 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
             label = "Pairing Button";
+        };
+    };
+
+    /* GPIO 别名配置 - 用于应用程序引用 */
+    gpio_mapping {
+        compatible = "gpio-keys"; /* 使用gpio-keys提供结构 */
+        
+        /* SPI片选信号 */
+        spi4cs_gpio: spi4_cs_gpio {
+            gpios = <&gpio0 8 GPIO_ACTIVE_LOW>;
+            label = "SPI4 Chip Select GPIO";
+        };
+        
+        /* 调制解调器数据就绪信号 */
+        modem_data_ready_gpio: modem_data_ready_gpio {
+            gpios = <&gpio0 9 (GPIO_PULL_DOWN | GPIO_ACTIVE_HIGH)>;
+            label = "Modem Data Ready GPIO";
         };
     };
 
@@ -34,6 +51,9 @@
         ble-led = &ble_led;
         status-led = &status_led;
         pairing-button = &pairing_button;
+        /* 添加GPIO相关别名 */
+        spi4cs = &spi4cs_gpio;
+        modemdataready = &modem_data_ready_gpio;
     };
 
     chosen {
@@ -42,8 +62,40 @@
     };
 };
 
-/* 配置UART20用于调试 (nRF54L15使用uart20作为默认调试接口) */
+/* 配置UART20用于调试 */
 &uart20 {
+    status = "okay";
+};
+
+/* 启用并配置SPI接口 - 根据nRF54L15的标准配置 */
+&spi00 {
+    status = "okay";
+    /* 使用标准pinctrl配置 */
+    pinctrl-0 = <&spi00_default>;
+    pinctrl-1 = <&spi00_sleep>;
+    pinctrl-names = "default", "sleep";
+    /* 配置片选GPIO */
+    cs-gpios = <&gpio0 8 GPIO_ACTIVE_LOW>;
+    
+    /* SPI从设备配置 - 移除不兼容的属性 */
+    modem_spi: spi_device@0 {
+        compatible = "zephyr,spi-device";  /* 使用标准SPI设备兼容性 */
+        reg = <0>;
+        spi-max-frequency = <8000000>; /* 8MHz */
+        label = "MODEM_SPI";
+    };
+};
+
+/* 启用GPIO控制器 */
+&gpio0 {
+    status = "okay";
+};
+
+&gpio1 {
+    status = "okay";
+};
+
+&gpio2 {
     status = "okay";
 };
 

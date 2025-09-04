@@ -43,7 +43,7 @@ LOG_MODULE_REGISTER(spi_modem, CONFIG_SPI_MODEM_LOG_LEVEL);
 
 int modem_spi_send_command(modem_message_type_t type, uint8_t *data, uint16_t dataLen, bool reply_requested);
 
-#define SPI_INSTANCE 4
+#define SPI_INSTANCE 0
 static const nrfx_spim_t spim = NRFX_SPIM_INSTANCE(SPI_INSTANCE);
 
 // This holds a copy of the last status message received from the 9160

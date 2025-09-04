@@ -31,6 +31,19 @@ zephyr_library_include_directories(src/zbus/include)
 # 可选：如果要使用c_modules，取消注释下面的行
  add_subdirectory(c_modules/utils)
  add_subdirectory(c_modules/fqueue)
+ add_subdirectory(c_modules/json)        # 添加JSON模块
+ add_subdirectory(c_modules/imu)         # 添加IMU模块  
+ add_subdirectory(c_modules/modem)       # 添加调制解调器模块
+ add_subdirectory(c_modules/pmic)       # 添加PMIC模块
+ add_subdirectory(c_modules/uicr)       # 添加UICR模块
+ add_subdirectory(c_modules/tde)        # 添加TDE模块
+ add_subdirectory(c_modules/watchdog)   # 添加看门狗模块
+# 添加src子模块
+add_subdirectory(src/comm_mgr)          # 添加通信管理器模块
+add_subdirectory(src/ml)                # 添加机器学习模块
+add_subdirectory(src/storage)           # 添加存储模块
+add_subdirectory(src/wifi)              # 添加WiFi模块
+add_subdirectory(src/zbus)              # 添加ZBus模块
 
 # 添加应用版本信息
 target_compile_definitions(app PRIVATE

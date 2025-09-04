@@ -1261,8 +1261,25 @@ nvic: &cpuapp_nvic {};
         compatible = "gpio-keys";
 
         pairing_button: button_pairing {
-            gpios = <&gpio0 04 ((1 << 4) | (1 << 0))>;
+            gpios = <&gpio0 4 ((1 << 4) | (1 << 0))>;
             label = "Pairing Button";
+        };
+    };
+
+
+    gpio_mapping {
+        compatible = "gpio-keys";
+
+
+        spi4cs_gpio: spi4_cs_gpio {
+            gpios = <&gpio0 8 (1 << 0)>;
+            label = "SPI4 Chip Select GPIO";
+        };
+
+
+        modem_data_ready_gpio: modem_data_ready_gpio {
+            gpios = <&gpio0 9 ((1 << 5) | (0 << 0))>;
+            label = "Modem Data Ready GPIO";
         };
     };
 
@@ -1271,6 +1288,9 @@ nvic: &cpuapp_nvic {};
         ble-led = &ble_led;
         status-led = &status_led;
         pairing-button = &pairing_button;
+
+        spi4cs = &spi4cs_gpio;
+        modemdataready = &modem_data_ready_gpio;
     };
 
     chosen {
@@ -1281,6 +1301,38 @@ nvic: &cpuapp_nvic {};
 
 
 &uart20 {
+    status = "okay";
+};
+
+
+&spi00 {
+    status = "okay";
+
+    pinctrl-0 = <&spi00_default>;
+    pinctrl-1 = <&spi00_sleep>;
+    pinctrl-names = "default", "sleep";
+
+    cs-gpios = <&gpio0 8 (1 << 0)>;
+
+
+    modem_spi: spi_device@0 {
+        compatible = "zephyr,spi-device";
+        reg = <0>;
+        spi-max-frequency = <8000000>;
+        label = "MODEM_SPI";
+    };
+};
+
+
+&gpio0 {
+    status = "okay";
+};
+
+&gpio1 {
+    status = "okay";
+};
+
+&gpio2 {
     status = "okay";
 };
 

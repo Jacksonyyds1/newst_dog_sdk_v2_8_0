@@ -1,7 +1,0 @@
-default: dog_tracker
-build_dir: D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/build
-domains:
-  - name: dog_tracker
-    build_dir: D:/xiao_tian_ling_v0.2/tracker_fw_sdk_V2_8_0/dog_tracker/build/dog_tracker
-flash_order:
-  - dog_tracker
